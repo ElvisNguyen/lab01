@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, Button, StyleSheet} from 'react-native';
-import {Task} from './AddToList'
 
 interface Props {
     id: string;
