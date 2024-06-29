@@ -18,7 +18,7 @@ const AddToList: React.FC<Props> = ({tasks, setTasks}) => {
 
     const addTask = () => {
         if(!task) {
-
+            return
         }
         else {
             setTasks([...tasks, {
@@ -41,7 +41,11 @@ return(
 
         </TextInput>
         <View style={styles.addButton}>
-            <Button title="Add to list" onPress={addTask} color="#551A8B"/>
+            <Button
+            title="Add to list"
+            onPress={addTask}
+            color="#551A8B"
+            disabled={!task}/>
         </View>
         
     </View>)

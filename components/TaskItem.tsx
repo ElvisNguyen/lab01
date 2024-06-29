@@ -28,7 +28,7 @@ return(
         ></Switch>
         <View style={styles.button}>
         <Button title="Delete task"
-        color="#f08484"
+        color="#3489eb"
         onPress={() => deleteTask(id)}/>
         </View>
         </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create( {
         borderRadius: 10,
         margin: 8,
         flexDirection: 'row',
-        backgroundColor: '#FFF',
+        backgroundColor: '#d1bce0',
         alignItems: 'center',
     },
     title: {
