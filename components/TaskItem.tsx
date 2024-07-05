@@ -56,10 +56,11 @@ const styles = StyleSheet.create( {
     buttonSwitchContainer: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'center'
     },
     switch: {
-        flex: 0.4,
-        paddingRight: 15,
+        flex: 0.5,
+        paddingRight: 0,
     },
     button: {
         flex: 0.5,
