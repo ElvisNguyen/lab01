@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, Button, StyleSheet} from 'react-native';
+import { setStatus } from '../db/FirebaseHelper';
 
 interface Props {
     id: string;
@@ -15,6 +16,7 @@ const TaskItem: React.FC<Props> = ({id, title, status, deleteTask, toggleTaskSta
 
     const handleToggle = () => {
         setComplete(!complete)
+        setStatus(id, !complete)
         toggleTaskStatus(id)
     }
 return(

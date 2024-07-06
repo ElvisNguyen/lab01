@@ -1,23 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Button, FlatList } from 'react-native';
 import Title from './components/Title'
 import AddToList, {Task} from './components/AddToList';
 import TaskItem from './components/TaskItem'
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './db/FirebaseConfig';
+import { deleteTaskDB, setStatus } from './db/FirebaseHelper';
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([])
   
   const deleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id))
+    //setTasks(tasks.filter(task => task.id !== id))
+    deleteTaskDB(id)
   }
 
   const toggleTaskStatus = (id: string) => {
     const updatedTasks = tasks.map(task => 
       task.id === id ? {...task, status: !task.status} : task
+      
       )
       setTasks(updatedTasks)
   }
+
+  useEffect( () => {
+    const listRef = collection(db, 'todo-list')
+
+    const subscriber = onSnapshot(listRef, {
+      next: (snapshot) => 
+        {
+        const localTodoList: Task[] = []
+        snapshot.docs.forEach( (listItem) => 
+          {
+            localTodoList.push(
+            {
+              id:listItem.id,
+              title: listItem.data().title,
+              status: listItem.data().status
+            })
+          })
+          setTasks(localTodoList)
+      }
+    })
+    return () => subscriber()
+  })
 
   return (
     <SafeAreaView style={styles.container}>

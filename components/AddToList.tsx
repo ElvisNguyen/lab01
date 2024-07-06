@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Keyboard, View, TextInput , StyleSheet, Button} from 'react-native';
 import uuid from 'react-native-uuid'
+import { addToListDB } from '../db/FirebaseHelper';
 
 export interface Task {
     id: string;
@@ -13,6 +14,7 @@ interface Props {
     tasks: Task[];
 }
 
+
 const AddToList: React.FC<Props> = ({tasks, setTasks}) => {
     const [task, setTask] = useState<string>('')
 
@@ -21,11 +23,14 @@ const AddToList: React.FC<Props> = ({tasks, setTasks}) => {
             return
         }
         else {
+            addToListDB(task)
+
+            /*
             setTasks([...tasks, {
                 id: uuid.v4().toString(),
                 title: task,
                 status: false
-            }])
+            }])*/
             setTask('')
             Keyboard.dismiss()
         }
