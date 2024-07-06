@@ -1,8 +1,7 @@
 import { db } from "./FirebaseConfig";
-import {Task} from '../components/AddToList'
 import {collection, doc, addDoc, deleteDoc, updateDoc} from 'firebase/firestore'
 
-export const addToListDB = async (title: String) =>{
+export const addToListDB = async (title: String) => {
     try {
         const docRef = await addDoc(collection(db, 'todo-list'), {
             title: title,
@@ -10,8 +9,7 @@ export const addToListDB = async (title: String) =>{
           });
           
           await updateDoc(docRef, {id: docRef.id})
-          
-          console.log('Document written with ID: ', docRef.id);
+          return docRef.id.toString()
         } catch (error) {
           console.log('Error adding the document', error);
     }
@@ -31,7 +29,7 @@ export const setStatus = async (id:String, status:Boolean) => {
     try {
         const itemRef = doc(db, `todo-list/${id}`)
         await updateDoc(itemRef, {status: status})
-    } catch (error){
+    } catch (error) {
         console.error(error)
     }
 

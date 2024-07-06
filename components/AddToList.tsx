@@ -24,10 +24,9 @@ const AddToList: React.FC<Props> = ({tasks, setTasks}) => {
         }
         else {
             addToListDB(task)
-
-            /*
+/*
             setTasks([...tasks, {
-                id: uuid.v4().toString(),
+                id: task.id,
                 title: task,
                 status: false
             }])*/

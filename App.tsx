@@ -30,21 +30,22 @@ export default function App() {
     const subscriber = onSnapshot(listRef, {
       next: (snapshot) => 
         {
+          console.log("Fetching data from fs")
         const localTodoList: Task[] = []
         snapshot.docs.forEach( (listItem) => 
           {
             localTodoList.push(
             {
               id:listItem.id,
-              title: listItem.data().title,
-              status: listItem.data().status
+              title: listItem.data()?.title,
+              status: listItem.data()?.status
             })
           })
           setTasks(localTodoList)
       }
     })
     return () => subscriber()
-  })
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
